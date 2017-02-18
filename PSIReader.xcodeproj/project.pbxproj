@@ -19,6 +19,7 @@
 		C56F448F1E582DCD003AEA09 /* PSITableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C56F448D1E582DCD003AEA09 /* PSITableViewCell.m */; };
 		C56F44901E582DCD003AEA09 /* PSITableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56F448E1E582DCD003AEA09 /* PSITableViewCell.xib */; };
 		C5B29C7A1E583BF1007FA7C4 /* BackendConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B29C791E583BF1007FA7C4 /* BackendConnector.m */; };
+		C5B29C7F1E584813007FA7C4 /* RegionalPSI.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B29C7E1E584813007FA7C4 /* RegionalPSI.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,8 @@
 		C56F448E1E582DCD003AEA09 /* PSITableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSITableViewCell.xib; sourceTree = "<group>"; };
 		C5B29C781E583BF1007FA7C4 /* BackendConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendConnector.h; sourceTree = "<group>"; };
 		C5B29C791E583BF1007FA7C4 /* BackendConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendConnector.m; sourceTree = "<group>"; };
+		C5B29C7D1E584813007FA7C4 /* RegionalPSI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionalPSI.h; sourceTree = "<group>"; };
+		C5B29C7E1E584813007FA7C4 /* RegionalPSI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionalPSI.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,10 +120,10 @@
 			isa = PBXGroup;
 			children = (
 				C56F447E1E582B08003AEA09 /* Classes */,
-				C56F44541E582A96003AEA09 /* Main.storyboard */,
-				C56F44571E582A96003AEA09 /* Assets.xcassets */,
 				C56F44591E582A96003AEA09 /* LaunchScreen.storyboard */,
+				C56F44541E582A96003AEA09 /* Main.storyboard */,
 				C56F445C1E582A96003AEA09 /* Info.plist */,
+				C56F44571E582A96003AEA09 /* Assets.xcassets */,
 				C56F444B1E582A96003AEA09 /* Supporting Files */,
 			);
 			path = PSIReader;
@@ -158,6 +161,7 @@
 				C56F447F1E582B08003AEA09 /* AppDelegate */,
 				C56F44821E582B08003AEA09 /* Helpers */,
 				C56F44831E582B08003AEA09 /* Libraries */,
+				C5B29C7C1E58472D007FA7C4 /* Models */,
 				C56F44841E582B08003AEA09 /* ViewControllers */,
 			);
 			path = Classes;
@@ -198,6 +202,15 @@
 				C56F448E1E582DCD003AEA09 /* PSITableViewCell.xib */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		C5B29C7C1E58472D007FA7C4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C5B29C7D1E584813007FA7C4 /* RegionalPSI.h */,
+				C5B29C7E1E584813007FA7C4 /* RegionalPSI.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		C6C05B42E8553203F251CDE5 /* Pods */ = {
@@ -403,6 +416,7 @@
 				C56F44871E582B08003AEA09 /* AppDelegate.m in Sources */,
 				C5B29C7A1E583BF1007FA7C4 /* BackendConnector.m in Sources */,
 				C56F448B1E582B4B003AEA09 /* LandingViewController.m in Sources */,
+				C5B29C7F1E584813007FA7C4 /* RegionalPSI.m in Sources */,
 				C56F444D1E582A96003AEA09 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

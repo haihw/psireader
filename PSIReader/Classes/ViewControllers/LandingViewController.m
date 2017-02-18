@@ -8,12 +8,15 @@
 
 #import "LandingViewController.h"
 #import "PSITableViewCell.h"
+#import "RegionalPSI.h"
 #import "BackendConnector.h"
+#import "LMPullToBounceWrapper.h"
+#import "MBProgressHUD.h"
 static NSString *cellIdentifier = @"PSITableViewCellIdentier";
-
-@interface LandingViewController () <UITableViewDelegate, UITableViewDataSource>
+static NSString *kKeyLastestPSIInfos = @"regionalPSIInfos";
+@interface LandingViewController () <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 {
-    NSDictionary *psiResult;
+    NSArray *regionalPSIInfos;
 }
 @end
 
@@ -26,6 +29,10 @@ static NSString *cellIdentifier = @"PSITableViewCellIdentier";
     _tablePSIResult.dataSource = self;
     [_tablePSIResult registerClass:[PSITableViewCell class] forCellReuseIdentifier:cellIdentifier];
     [_tablePSIResult registerNib:[UINib nibWithNibName:@"PSITableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
+    
+    NSData *serialized = [[NSUserDefaults standardUserDefaults] objectForKey:kKeyLastestPSIInfos];
+    regionalPSIInfos = [NSKeyedUnarchiver unarchiveObjectWithData:serialized];
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -33,6 +40,15 @@ static NSString *cellIdentifier = @"PSITableViewCellIdentier";
     // Dispose of any resources that can be recreated.
 }
 
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear: animated];
+    //Load the local data
+    if (regionalPSIInfos){
+        NSDate *lastResultTime = ((RegionalPSI *)regionalPSIInfos.firstObject).time;
+        _lbDateTime.text = [NSString stringWithFormat:@"Last Result: %@", [self stringFromDate:lastResultTime]];
+        [_tablePSIResult reloadData];
+    }
+}
 /*
 #pragma mark - Navigation
 
@@ -42,28 +58,67 @@ static NSString *cellIdentifier = @"PSITableViewCellIdentier";
     // Pass the selected object to the new view controller.
 }
 */
+- (NSString *)stringFromDate:(NSDate *)date{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    dateFormatter.dateFormat = @"dd/MM/yyyy HH:mm:ss";
+    dateFormatter.timeZone = [NSTimeZone localTimeZone];
+    NSString *dateTimeString = [dateFormatter stringFromDate:date];
+    return dateTimeString;
+}
+- (void)hudWasCancelled {
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+}
+
 - (void)fetchPSIData{
-    [[BackendConnector sharedConnector] getPSIForDateTime:[NSDate date] response:^(BOOL success, NSString *message, NSDictionary *result) {
-        NSLog(@"Done");
-    }];
-    [_tablePSIResult reloadData];
+    NSDate *currentTime = [NSDate date];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.label.text = @"Getting data";
+    hud.detailsLabel.text = @"Tap to cancel";
+    [hud addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hudWasCancelled)]];
+    [[BackendConnector sharedConnector] getPSIForDateTime:currentTime
+                                                 response:^(BOOL success, NSString *message, NSArray *result) {
+                                                     [MBProgressHUD hideHUDForView:self.view animated:YES];
+                                                     if (success){
+                                                         regionalPSIInfos = result;
+
+                                                         NSData *serialized = [NSKeyedArchiver archivedDataWithRootObject:regionalPSIInfos];
+                                                         [[NSUserDefaults standardUserDefaults] setObject:serialized forKey:kKeyLastestPSIInfos];
+                                                         
+                                                         _lbDateTime.text = [NSString stringWithFormat:@"Last Result: %@", [self stringFromDate:currentTime]];
+                                                         [_tablePSIResult reloadData];
+                                                     } else {
+                                                         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                                                                         message:[NSString stringWithFormat:@"%@\nDo you want to retry?", message]
+                                                                                                        delegate:self
+                                                                                               cancelButtonTitle:@"Cancel"
+                                                                                               otherButtonTitles:@"Retry", nil
+                                                                               ];
+                                                         [alert show];
+                                                     }
+                                                 }];
 }
 - (IBAction)btnRefreshTapped:(id)sender {
     [self fetchPSIData];
 }
 #pragma mark - UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
-    return psiResult.count;
+    return regionalPSIInfos.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     PSITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
-    
+    RegionalPSI *psiInfo = regionalPSIInfos[indexPath.row];
     if (cell){
-        cell.lbRegion.text = @"National";
-        cell.lbPSI24.text = @"111";
-        cell.lbPSI3.text = @"222";
+        cell.lbRegion.text = psiInfo.region.capitalizedString;
+        cell.lbPSI24.text = ((NSNumber*)[psiInfo.psiValues objectForKey:@"psi_three_hourly"]).stringValue;
+        cell.lbPSI3.text = ((NSNumber*)[psiInfo.psiValues objectForKey:@"psi_twenty_four_hourly"]).stringValue;
     }
     return cell;
+}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex > 0){
+        [self fetchPSIData];
+    }
 }
 @end

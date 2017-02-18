@@ -1,0 +1,6 @@
+target "PSIReader" do
+   platform :ios, '8.0'
+   pod 'MBProgressHUD'
+   pod 'AFNetworking'
+   pod 'LMPullToBounce'
+end
