@@ -22,6 +22,7 @@
 		C5B061F51E58BFA900C75AEB /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B061F41E58BFA900C75AEB /* HistoryViewController.m */; };
 		C5B29C7A1E583BF1007FA7C4 /* BackendConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B29C791E583BF1007FA7C4 /* BackendConnector.m */; };
 		C5B29C7F1E584813007FA7C4 /* RegionalPSI.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B29C7E1E584813007FA7C4 /* RegionalPSI.m */; };
+		C5BCA7E61E58D1EA0019517B /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = C5BCA7E51E58D1EA0019517B /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		C5B29C791E583BF1007FA7C4 /* BackendConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendConnector.m; sourceTree = "<group>"; };
 		C5B29C7D1E584813007FA7C4 /* RegionalPSI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionalPSI.h; sourceTree = "<group>"; };
 		C5B29C7E1E584813007FA7C4 /* RegionalPSI.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegionalPSI.m; sourceTree = "<group>"; };
+		C5BCA7E51E58D1EA0019517B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 		C56F443F1E582A96003AEA09 = {
 			isa = PBXGroup;
 			children = (
+				C5BCA7E51E58D1EA0019517B /* README.md */,
 				C5B061F61E58CB6F00C75AEB /* BuildScript.sh */,
 				C56F444A1E582A96003AEA09 /* PSIReader */,
 				C56F44641E582A96003AEA09 /* PSIReaderTests */,
@@ -431,6 +434,7 @@
 				C5B061F51E58BFA900C75AEB /* HistoryViewController.m in Sources */,
 				C56F448B1E582B4B003AEA09 /* LandingViewController.m in Sources */,
 				C5B061F21E58AF8600C75AEB /* DataController.m in Sources */,
+				C5BCA7E61E58D1EA0019517B /* README.md in Sources */,
 				C5B29C7F1E584813007FA7C4 /* RegionalPSI.m in Sources */,
 				C56F444D1E582A96003AEA09 /* main.m in Sources */,
 			);
