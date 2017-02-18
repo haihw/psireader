@@ -12,8 +12,13 @@
 #import "BackendConnector.h"
 #import "LMPullToBounceWrapper.h"
 #import "MBProgressHUD.h"
+
+
 static NSString *cellIdentifier = @"PSITableViewCellIdentier";
 static NSString *kKeyLastestPSIInfos = @"regionalPSIInfos";
+
+#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
+
 @interface LandingViewController () <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 {
     NSArray *regionalPSIInfos;
@@ -25,6 +30,19 @@ static NSString *kKeyLastestPSIInfos = @"regionalPSIInfos";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    CAGradientLayer *gradient = [CAGradientLayer layer];
+    
+    gradient.frame = self.view.bounds;
+    gradient.colors = @[(id)UIColorFromRGB(0x98DBC6).CGColor,
+                        (id)UIColorFromRGB(0x5BC8AC).CGColor,
+                        (id)UIColorFromRGB(0x98DBC6).CGColor
+                        ];
+    
+    [self.view.layer insertSublayer:gradient atIndex:0];
+    _tablePSIResult.backgroundColor = [UIColor clearColor];
+    _tablePSIResult.backgroundView = nil;
+
     _tablePSIResult.delegate = self;
     _tablePSIResult.dataSource = self;
     [_tablePSIResult registerClass:[PSITableViewCell class] forCellReuseIdentifier:cellIdentifier];
@@ -108,13 +126,30 @@ static NSString *kKeyLastestPSIInfos = @"regionalPSIInfos";
     PSITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     RegionalPSI *psiInfo = regionalPSIInfos[indexPath.row];
     if (cell){
+//        cell.backgroundColor = [UIColor clearColor];
+//        cell.backgroundView = nil;
         cell.lbRegion.text = psiInfo.region.capitalizedString;
         cell.lbPSI24.text = ((NSNumber*)[psiInfo.psiValues objectForKey:@"psi_three_hourly"]).stringValue;
         cell.lbPSI3.text = ((NSNumber*)[psiInfo.psiValues objectForKey:@"psi_twenty_four_hourly"]).stringValue;
     }
     return cell;
 }
-
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    PSITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if (cell){
+        cell.lbRegion.text = @"Region";
+        cell.lbPSI24.text = @"24h PSI";
+        cell.lbPSI3.text = @"3h PSI";
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(cell.bounds)-10.0f, CGRectGetWidth(cell.bounds), 0.5f)];
+        line.backgroundColor = [UIColor whiteColor];
+        [cell addSubview:line];
+    }
+    return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex > 0){
