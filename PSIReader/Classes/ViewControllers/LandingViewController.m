@@ -8,6 +8,7 @@
 
 #import "LandingViewController.h"
 #import "PSITableViewCell.h"
+#import "BackendConnector.h"
 static NSString *cellIdentifier = @"PSITableViewCellIdentier";
 
 @interface LandingViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -42,6 +43,9 @@ static NSString *cellIdentifier = @"PSITableViewCellIdentier";
 }
 */
 - (void)fetchPSIData{
+    [[BackendConnector sharedConnector] getPSIForDateTime:[NSDate date] response:^(BOOL success, NSString *message, NSDictionary *result) {
+        NSLog(@"Done");
+    }];
     [_tablePSIResult reloadData];
 }
 - (IBAction)btnRefreshTapped:(id)sender {
