@@ -12,4 +12,5 @@
 @property NSDate *time;
 @property NSString *region;
 @property NSDictionary *psiValues;
+- (NSString *)timeStamp;
 @end

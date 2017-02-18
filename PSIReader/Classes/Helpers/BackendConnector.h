@@ -12,5 +12,5 @@
 +(id)sharedConnector;
 
 - (void)getPSIForDateTime:(NSDate *)dateTime
-                 response:(void (^)(BOOL success, NSString *message, NSArray *result))block;
+                 response:(void (^)(BOOL success, NSString *message, id result))block;
 @end

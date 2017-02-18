@@ -18,6 +18,8 @@
 		C56F448B1E582B4B003AEA09 /* LandingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C56F448A1E582B4B003AEA09 /* LandingViewController.m */; };
 		C56F448F1E582DCD003AEA09 /* PSITableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C56F448D1E582DCD003AEA09 /* PSITableViewCell.m */; };
 		C56F44901E582DCD003AEA09 /* PSITableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C56F448E1E582DCD003AEA09 /* PSITableViewCell.xib */; };
+		C5B061F21E58AF8600C75AEB /* DataController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B061F11E58AF8600C75AEB /* DataController.m */; };
+		C5B061F51E58BFA900C75AEB /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B061F41E58BFA900C75AEB /* HistoryViewController.m */; };
 		C5B29C7A1E583BF1007FA7C4 /* BackendConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B29C791E583BF1007FA7C4 /* BackendConnector.m */; };
 		C5B29C7F1E584813007FA7C4 /* RegionalPSI.m in Sources */ = {isa = PBXBuildFile; fileRef = C5B29C7E1E584813007FA7C4 /* RegionalPSI.m */; };
 /* End PBXBuildFile section */
@@ -62,6 +64,11 @@
 		C56F448C1E582DCD003AEA09 /* PSITableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSITableViewCell.h; sourceTree = "<group>"; };
 		C56F448D1E582DCD003AEA09 /* PSITableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSITableViewCell.m; sourceTree = "<group>"; };
 		C56F448E1E582DCD003AEA09 /* PSITableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PSITableViewCell.xib; sourceTree = "<group>"; };
+		C5B061F01E58AF8600C75AEB /* DataController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataController.h; sourceTree = "<group>"; };
+		C5B061F11E58AF8600C75AEB /* DataController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataController.m; sourceTree = "<group>"; };
+		C5B061F31E58BFA900C75AEB /* HistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HistoryViewController.h; sourceTree = "<group>"; };
+		C5B061F41E58BFA900C75AEB /* HistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HistoryViewController.m; sourceTree = "<group>"; };
+		C5B061F61E58CB6F00C75AEB /* BuildScript.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = BuildScript.sh; sourceTree = "<group>"; };
 		C5B29C781E583BF1007FA7C4 /* BackendConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackendConnector.h; sourceTree = "<group>"; };
 		C5B29C791E583BF1007FA7C4 /* BackendConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackendConnector.m; sourceTree = "<group>"; };
 		C5B29C7D1E584813007FA7C4 /* RegionalPSI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegionalPSI.h; sourceTree = "<group>"; };
@@ -97,6 +104,7 @@
 		C56F443F1E582A96003AEA09 = {
 			isa = PBXGroup;
 			children = (
+				C5B061F61E58CB6F00C75AEB /* BuildScript.sh */,
 				C56F444A1E582A96003AEA09 /* PSIReader */,
 				C56F44641E582A96003AEA09 /* PSIReaderTests */,
 				C56F446F1E582A96003AEA09 /* PSIReaderUITests */,
@@ -181,6 +189,8 @@
 			children = (
 				C5B29C781E583BF1007FA7C4 /* BackendConnector.h */,
 				C5B29C791E583BF1007FA7C4 /* BackendConnector.m */,
+				C5B061F01E58AF8600C75AEB /* DataController.h */,
+				C5B061F11E58AF8600C75AEB /* DataController.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -197,6 +207,8 @@
 			children = (
 				C56F44891E582B4B003AEA09 /* LandingViewController.h */,
 				C56F448A1E582B4B003AEA09 /* LandingViewController.m */,
+				C5B061F31E58BFA900C75AEB /* HistoryViewController.h */,
+				C5B061F41E58BFA900C75AEB /* HistoryViewController.m */,
 				C56F448C1E582DCD003AEA09 /* PSITableViewCell.h */,
 				C56F448D1E582DCD003AEA09 /* PSITableViewCell.m */,
 				C56F448E1E582DCD003AEA09 /* PSITableViewCell.xib */,
@@ -300,6 +312,7 @@
 				TargetAttributes = {
 					C56F44471E582A96003AEA09 = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = 47NZJ66X5R;
 					};
 					C56F44601E582A96003AEA09 = {
 						CreatedOnToolsVersion = 7.2;
@@ -415,7 +428,9 @@
 				C56F448F1E582DCD003AEA09 /* PSITableViewCell.m in Sources */,
 				C56F44871E582B08003AEA09 /* AppDelegate.m in Sources */,
 				C5B29C7A1E583BF1007FA7C4 /* BackendConnector.m in Sources */,
+				C5B061F51E58BFA900C75AEB /* HistoryViewController.m in Sources */,
 				C56F448B1E582B4B003AEA09 /* LandingViewController.m in Sources */,
+				C5B061F21E58AF8600C75AEB /* DataController.m in Sources */,
 				C5B29C7F1E584813007FA7C4 /* RegionalPSI.m in Sources */,
 				C56F444D1E582A96003AEA09 /* main.m in Sources */,
 			);
@@ -557,11 +572,14 @@
 			baseConfigurationReference = 23E55A615599E5BFF09A85E6 /* Pods-PSIReader.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PSIReader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.haihw.PSIReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -570,11 +588,14 @@
 			baseConfigurationReference = 38433DC665342A354B1C5091 /* Pods-PSIReader.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = PSIReader/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.haihw.PSIReader;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};

@@ -36,7 +36,7 @@
 }
 
 - (void)getPSIForDateTime:(NSDate *)dateTime
-                 response:(void (^)(BOOL success, NSString *message, NSArray *result))block
+                 response:(void (^)(BOOL success, NSString *message, id result))block
 {
     NSURL *URL = [NSURL URLWithString:@"environment/psi" relativeToURL:sessionManager.baseURL];
     NSDictionary *params;
@@ -48,33 +48,16 @@
         params = [NSDictionary dictionaryWithObject:dateTimeString forKey:@"date_time"];
         NSLog(@"%@", params);
     }
-
-    [sessionManager GET:URL.absoluteString parameters:params progress:nil success:^(NSURLSessionTask *task, id responseObject) {
-        //Parse json to object
-
-        NSDictionary *psiReadingDictionary = [responseObject valueForKeyPath:@"items.readings"];
-        NSArray *regionMetaData = [responseObject valueForKeyPath:@"region_metadata"];
-
-        NSMutableArray *allRegions = [NSMutableArray array];
-        for (NSDictionary * region in regionMetaData){
-            RegionalPSI *regionalPsi = [[RegionalPSI alloc] init];
-            regionalPsi.region = [region objectForKey:@"name"];
-            regionalPsi.time = dateTime;
-            regionalPsi.psiValues = [NSMutableDictionary dictionary];
-            
-            for (NSDictionary *psiInfo in psiReadingDictionary){
-                for (NSString *psiType in psiInfo.allKeys){
-                    NSDictionary *psiValues = [psiInfo objectForKey:psiType];
-                    [regionalPsi.psiValues setValue:[psiValues objectForKey:regionalPsi.region] forKey:psiType];
+    
+    [sessionManager GET:URL.absoluteString
+             parameters:params progress:nil
+                success:^(NSURLSessionTask *task, id responseObject) {
+                    
+                    block (YES, @"", responseObject);
+                    NSLog(@"%@", responseObject);
                 }
-            }
-            
-            [allRegions addObject:regionalPsi];
-        }
-        
-        block (YES, @"", allRegions);
-    } failure:^(NSURLSessionTask *operation, NSError *error) {
-        block (NO, error.localizedDescription, nil);
-    }];
+                failure:^(NSURLSessionTask *operation, NSError *error) {
+                    block (NO, error.localizedDescription, nil);
+                }];
 }
 @end
