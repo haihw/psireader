@@ -45,7 +45,7 @@ static NSString *cellIdentifier = @"PSITableViewCellIdentier";
     [_tablePSIResult registerClass:[PSITableViewCell class] forCellReuseIdentifier:cellIdentifier];
     [_tablePSIResult registerNib:[UINib nibWithNibName:@"PSITableViewCell" bundle:nil] forCellReuseIdentifier:cellIdentifier];
     
-    
+    [self fetchPSIData];
 }
 - (void)displayLatestResult{
     regionalPSIInfos = [[DataController sharedController] getLatesPSI];

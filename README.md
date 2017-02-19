@@ -32,3 +32,25 @@ data locally so that user can read the data even though there is no internet con
 ## Developement time
 1. Main Requirement: 3h
 2. Bonus Requirement: 3h
+
+## Test plan:
+1. TC01: test the live data
+
+- Step 1: Lunch apps with internet connection
+- Expected result: the data is loaded automatically and displayed fully all region with 2 value 24h PSI and 3h PSI
+- Step 2: Tap refresh button
+- Expected result: The loading indicator is showed and the data is loaded and displayed fully all region with 2 value 24h PSI and 3h PSI
+- Step 3: Turn on airplan mode
+- Expected result: The pop up alert with 2 option "cancel" "retry" is prompted. Click on "retry", should be able to load data again. 
+
+2. TC02: test offline activity log
+
+- preconditions: existing apps with few times refreshed. 
+- Step 1: Turn on airplan mode and Lunch apps
+- Expected result: should be able to see the last result
+- Step 2: click on History button
+- Expected result: should be able to see the list of time stamps
+- Step 3: click on any time stamp
+- Expected result: should be able to see the PSI detail
+- Step 4: click on "Clear History" button
+- Expected result: should be able to clear the history data
