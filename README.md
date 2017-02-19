@@ -29,9 +29,10 @@ data locally so that user can read the data even though there is no internet con
 
 3. BONUS03: Implement activity log feature to keep track of the previous query result on PSI app
 
+4. BONUS07: Create a script to App project (.ipa) and copied it into a folder (e.g. project_root_folder\Deliverables).
 ## Developement time
 1. Main Requirement: 3h
-2. Bonus Requirement: 3h
+2. Bonus Requirement: 4h
 
 ## Test plan:
 1. TC01: test the live data
@@ -39,7 +40,7 @@ data locally so that user can read the data even though there is no internet con
 - Step 1: Lunch apps with internet connection
 - Expected result: the data is loaded automatically and displayed fully all region with 2 value 24h PSI and 3h PSI
 - Step 2: Tap refresh button
-- Expected result: The loading indicator is showed and the data is loaded and displayed fully all region with 2 value 24h PSI and 3h PSI
+- Expected result: The loading indicator is showed and the data is loaded and displayed fully all region with 2 value 24h PSI and 3h PSI. The loading indicator should be able to tap to cancel action
 - Step 3: Turn on airplan mode
 - Expected result: The pop up alert with 2 option "cancel" "retry" is prompted. Click on "retry", should be able to load data again. 
 
@@ -54,3 +55,7 @@ data locally so that user can read the data even though there is no internet con
 - Expected result: should be able to see the PSI detail
 - Step 4: click on "Clear History" button
 - Expected result: should be able to clear the history data
+
+3. TC03: test build script
+- Step 1: run command from project root folder: sh BuildScript.sh
+- expected result: the ipa file should be exported to project_root_folder\Deliverables
