@@ -13,4 +13,5 @@
 - (NSArray *)getLatesPSI;
 - (void)getCurrentPSIWithResponse:(void (^)(BOOL success, NSString *message, NSArray *result))block;
 - (NSArray *)getAllPSIRecords;
+- (void)clearData;
 @end

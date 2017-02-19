@@ -15,9 +15,6 @@
 #import "DataController.h"
 
 static NSString *cellIdentifier = @"PSITableViewCellIdentier";
-static NSString *kKeyLastestPSIInfos = @"regionalPSIInfosKey";
-
-#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 
 @interface LandingViewController () <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 {
@@ -39,9 +36,10 @@ static NSString *kKeyLastestPSIInfos = @"regionalPSIInfosKey";
                         ];
     
     [self.view.layer insertSublayer:gradient atIndex:0];
+    
     _tablePSIResult.backgroundColor = [UIColor clearColor];
     _tablePSIResult.backgroundView = nil;
-
+    
     _tablePSIResult.delegate = self;
     _tablePSIResult.dataSource = self;
     [_tablePSIResult registerClass:[PSITableViewCell class] forCellReuseIdentifier:cellIdentifier];
@@ -53,7 +51,7 @@ static NSString *kKeyLastestPSIInfos = @"regionalPSIInfosKey";
     regionalPSIInfos = [[DataController sharedController] getLatesPSI];
     if (regionalPSIInfos){
         NSDate *lastResultTime = ((RegionalPSI *)regionalPSIInfos.firstObject).time;
-        _lbDateTime.text = [NSString stringWithFormat:@"Last Result: %@", [self stringFromDate:lastResultTime]];
+        _lbDateTime.text = [NSString stringWithFormat:@"Last Result: %@", lastResultTime ?[self stringFromDate:lastResultTime]: @""];
         [_tablePSIResult reloadData];
     }
 

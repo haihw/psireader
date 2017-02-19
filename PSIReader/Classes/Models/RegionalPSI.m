@@ -41,11 +41,13 @@
     [encoder encodeObject:self.psiValues forKey:@"psiValues"];
 }
 - (NSString *)timeStamp{
-    
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-    dateFormatter.dateFormat = @"dd/MM/yyyy HH:mm:ss";
-    dateFormatter.timeZone = [NSTimeZone localTimeZone];
-    NSString *dateTimeString = [dateFormatter stringFromDate:self.time];
-    return dateTimeString;
+    if (self.time){
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        dateFormatter.dateFormat = @"dd/MM/yyyy HH:mm:ss";
+        dateFormatter.timeZone = [NSTimeZone localTimeZone];
+        NSString *dateTimeString = [dateFormatter stringFromDate:self.time];
+        return dateTimeString;
+    }
+    return @"";
 }
 @end

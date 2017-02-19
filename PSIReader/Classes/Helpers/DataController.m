@@ -20,6 +20,10 @@ static NSString *kKeyLastestPSIInfos = @"regionalPSIInfos";
     });
     return _sharedObject;
 }
+- (void)clearData{
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kKeyLastestPSIInfos];
+
+}
 - (NSArray *)getLatesPSI{
     NSData *serialized = [[NSUserDefaults standardUserDefaults] objectForKey:kKeyLastestPSIInfos];
     NSMutableArray *savedPSIInfos = [NSKeyedUnarchiver unarchiveObjectWithData:serialized];
@@ -87,4 +91,5 @@ static NSString *kKeyLastestPSIInfos = @"regionalPSIInfos";
     }
     return allPSIRecords;
 }
+
 @end

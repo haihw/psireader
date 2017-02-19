@@ -11,6 +11,7 @@
 #import "RegionalPSI.h"
 #define kBaseURL @"https://api.data.gov.sg/v1/"
 #define kConsumerKey @"q20Alu9Aaj6xyfRHQtT9aKbkrdDBweK8"
+
 @interface BackendConnector(){
     AFHTTPSessionManager *sessionManager;
 }
@@ -46,7 +47,7 @@
         dateFormatter.timeZone = [NSTimeZone localTimeZone];
         NSString *dateTimeString = [dateFormatter stringFromDate:dateTime];
         params = [NSDictionary dictionaryWithObject:dateTimeString forKey:@"date_time"];
-        NSLog(@"%@", params);
+//        NSLog(@"%@", params);
     }
     
     [sessionManager GET:URL.absoluteString
@@ -54,7 +55,7 @@
                 success:^(NSURLSessionTask *task, id responseObject) {
                     
                     block (YES, @"", responseObject);
-                    NSLog(@"%@", responseObject);
+//                    NSLog(@"%@", responseObject);
                 }
                 failure:^(NSURLSessionTask *operation, NSError *error) {
                     block (NO, error.localizedDescription, nil);

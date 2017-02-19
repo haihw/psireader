@@ -9,10 +9,12 @@
 #import "HistoryViewController.h"
 #import "RegionalPSI.h"
 #import "DataController.h"
-#define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
-
-@interface HistoryViewController () <UITableViewDataSource, UITableViewDelegate>
-
+#import "PSIViewerViewController.h"
+static NSString *showViewerSegueIndentifier = @"showViewerSegue";
+@interface HistoryViewController () <UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate>
+{
+    NSArray *selectedPSIInfo;
+}
 @end
 
 @implementation HistoryViewController
@@ -43,15 +45,15 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    PSIViewerViewController *psiViewer = segue.destinationViewController;
+    psiViewer.psiInfos = selectedPSIInfo;
 }
-*/
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return _psiRecords.count;
@@ -72,11 +74,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSArray *psiInfo = _psiRecords[_psiRecords.count - indexPath.row - 1];
+    selectedPSIInfo = _psiRecords[_psiRecords.count - indexPath.row - 1];
     //show
+    [self performSegueWithIdentifier:showViewerSegueIndentifier sender:nil];
     
 }
 - (IBAction)btnBackTapped:(id)sender {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+- (IBAction)btnClearTapped:(id)sender {
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Warning" message:@"Do you want to delete history?" delegate:self cancelButtonTitle:@"NO" otherButtonTitles:@"YES", nil];
+    [alert show];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex > 0){
+        [[DataController sharedController] clearData];
+        _psiRecords = [[DataController sharedController] getAllPSIRecords];
+        [_tableView reloadData];
+    }
 }
 @end
